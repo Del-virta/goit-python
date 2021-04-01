@@ -7,7 +7,8 @@ def fibonacci(n):
         return 0
     elif n == 2:
         return 1
-    return fibonacci(n-1)+fibonacci(n-2)
+    else:
+        return fibonacci(n-2)+fibonacci(n-1)
 
 if __name__ == '__main__':
     n = main()
