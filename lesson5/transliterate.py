@@ -68,14 +68,13 @@ def normalize(text):
     ord('ь'): "'",
     ord('ъ'): ""}
     text_with_no_symbols = re.sub("\W", "_", text)
-    print(text_with_no_symbols)
     fixed_text = text_with_no_symbols.translate(symbol_map)
-    print(fixed_text)
+    return fixed_text
 
 
 def main():
     text = input("Ведите текст для обработки: ")
-    normalize(text)
+    print(normalize(text))
 
 
 if __name__ == "__main__":
