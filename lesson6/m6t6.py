@@ -4,3 +4,5 @@ def encode_password(password):
     for symbol in byte_pass:
         symbol_list.append(hex(symbol))
     return symbol_list
+
+print(encode_password('dufygkahd76r'))
