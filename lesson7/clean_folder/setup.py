@@ -7,7 +7,7 @@ setup(
         'console_scripts': ['clean-folder=clean_folder.clean:main']
     }
     author='Delvirta',
-    url='http://github.com/dummy_user/useful',
+    url='https://github.com/Del-virta/goit-python/tree/main/lesson7/clean_folder',
     author_email='delvirta@gmail.com',
     zip_safe = False
     packages = find_packages()
