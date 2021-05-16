@@ -11,4 +11,4 @@ def token_parser(s):
         else:
             newest_s.append(item)
     return newest_s
-print(token_parser('(2+ 3) *4 - 5 * 3'))
+print(token_parser('(2+ 3) *45 - 5 * 3'))
