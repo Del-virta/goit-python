@@ -1,6 +1,6 @@
 def format_phone_number(func):
     def inner(phone):
-        if len(phone)<12:
+        if len(func(phone))<12:
             return '+38' + func(phone)
         else:
             return '+' + func(phone)
@@ -18,4 +18,4 @@ def sanitize_phone_number(phone):
     )
     return new_phone
 
-print(sanitize_phone_number('0503451234'))
+print(sanitize_phone_number('   0503451234'))
