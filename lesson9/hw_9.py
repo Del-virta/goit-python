@@ -1,61 +1,69 @@
 import re
 
 exit_commands = ['good bye', 'close', 'exit']
-phone_book = {}
+phone_book = {'gogo':'+380501234578', 'koko':'+380214578965'}
 
 def say_hello():
-    print('How can I help you?')
+    return 'How can I help you?'
 
 def add_contact(name, number):
     if name in phone_book:
         raise IndexError
     else:
         phone_book[name] = number
+        return f'Contact {name} is in your phone book now!'
+
 
 def change_contact(name, number):
     if name in phone_book:
         phone_book[name] = number
+        return f'Contact {name} number is changed now!'        
     else:
-        raise KeyError
+        raise ValueError
 
 def find_contact(name):
     if name in phone_book:
-        print(phone_book[name])
+        return f'{name} number is {phone_book[name]}'
     else:
-        raise KeyError
+        raise ValueError
 
 def print_contacts():
+    contact_list = []
     for name, number in phone_book.items():
-        print(f'{name}: {number}')
+        contact_list.append(f'{name}: {number}')
+    return '\n'.join(contact_list)
 
 def input_error(command):
     def inner(*args):
-        try:
-            a = command(*args)
-            return a        
+        try:            
+            return command(*args)        
         except KeyError:
-            print('There is no such a contact')
+            return 'There is no such a command'
         except ValueError: 
-            print('Please enter your command')
+            return 'Input data is invalid'
         except IndexError:
-            print('This contact already exists')
+            return 'This contact already exists'
     return inner
 
 commands = {
         'hello': say_hello,
         'add': add_contact,
-        'change': add_contact,
+        'change': change_contact,
         'phone': find_contact,
         'show all': print_contacts,
     }
 
+@input_error
 def parse_command(user_input):
-    user_input_list = re.split(' ', user_input)
-    if len(user_input_list)>0:        
-        if user_input_list[0] in commands:
-            command = user_input_list[0]
-        else:
-            raise ValueError
+    if user_input.startswith('show all'):
+        command = 'show all'
+    else:
+        user_input_list = re.split(' ', user_input)
+        if len(user_input_list)>0:        
+            if user_input_list[0] in commands:
+                command = user_input_list[0]
+            else:
+                raise KeyError
     return command
 
 def parse_name(user_input):
@@ -64,7 +72,7 @@ def parse_name(user_input):
         name = user_input_list[1]
     return name
 
-
+@input_error
 def parse_number(user_input):
     user_input_list = re.split(' ', user_input)
     if len(user_input_list)==3:
@@ -73,7 +81,7 @@ def parse_number(user_input):
         elif user_input_list[2].isdigit and len(user_input_list[2]) == 10:
             number = '+38' + user_input_list[2]
         else:
-            print('Entered number is invalid')
+            raise ValueError
     return number
 
 @input_error
@@ -81,12 +89,13 @@ def handle_command(command, user_input):
     if command in ['add','change']:
         name = parse_name(user_input)
         number = parse_number(user_input)
-        return commands[command](name, number)
+        result = commands[command](name, number) 
+        return result
     elif command == 'phone':
-        name = parse_name(user_input)
+        name = parse_name(user_input) 
         return commands[command](name)
-    else: 
-        return commands[command]
+    else:
+        return commands[command]()        
 
 
 def main():
@@ -104,8 +113,7 @@ def main():
             print('Good bye!')
             break
         else:
-            command = parse_command(user_input)
-            handle_command(command, user_input)
+            print(handle_command(parse_command(user_input),user_input))
 
 if __name__ == '__main__':
     main()
