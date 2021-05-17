@@ -9,6 +9,6 @@ contact_list = [
 ]
 
 print(get_emails(contact_list))
-#print(contact_list[0]['email'])
+
 
     
