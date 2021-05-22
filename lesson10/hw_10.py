@@ -2,6 +2,7 @@
 from collections import UserDict
 
 class AddressBook(UserDict):
+
     def add_record(self, record):
         self.data = record
     
@@ -13,11 +14,13 @@ class Record:
     def add_phone(self, phone):
         self.phones.append(phone)
 
-    def add_phone(self, phone):
+    def remove_phone(self, phone):
         self.phones.remove(phone)
 
-    def add_phone(self, phone):
-        pass
+    def change_phone(self, phone_1, phone_2):
+        self.remove_phone(phone_1)
+        self.add_phone(phone_2)
+
 
 class Field:
     pass
@@ -31,11 +34,3 @@ class Phone(Field):
     def __init__(self, phone):
         self.phone = phone
 
-name = Name('Bob')
-phone = Phone('12335478896')
-phone_1 = Phone('122458745445')
-record_1 = Record(name)
-record_1.add_phone(phone)
-record_1.add_phone(phone_1)
-address_book = AddressBook()
-address_book.add_record(record_1)
