@@ -14,7 +14,7 @@ class Contacts:
             'phone':phone, 
             'email':email, 
             'favorite':favorite})
-        self.current_id+=1
+        Contacts.current_id+=1
         
         
 
